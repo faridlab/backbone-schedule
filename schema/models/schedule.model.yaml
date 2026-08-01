@@ -1,0 +1,68 @@
+# =============================================================================
+# Domain: schedule
+# Entity: Schedule
+# Description: A shift definition (times + recurrence + holiday override).
+# =============================================================================
+
+models:
+  - name: Schedule
+    collection: schedules
+    description: "A shift definition (times + recurrence + holiday override)."
+
+    fields:
+      id:
+        type: uuid
+        attributes: ["@id", "@default(uuid)"]
+        description: "Unique schedule id"
+
+      company_id:
+        type: uuid
+        attributes: ["@required", "@exclude_from_foreign_key_check"]
+        description: "Org owner # logical FK organization.Company.id"
+
+      name:
+        type: string
+        attributes: ["@required", "@length(max=120)"]
+        description: "Shift name"
+
+      is_default:
+        type: boolean
+        attributes: ["@default(false)"]
+        description: "Company default schedule"
+
+      order_number:
+        type: integer
+        attributes: ["@default(0)"]
+        description: "Display order"
+
+      start_date:
+        type: date?
+        description: "Effective from"
+
+      end_date:
+        type: date?
+        description: "Effective until"
+
+      time_in:
+        type: time
+        attributes: ["@required"]
+        description: "Shift start time"
+
+      time_out:
+        type: time
+        attributes: ["@required"]
+        description: "Shift end time"
+
+      is_override_holiday:
+        type: boolean
+        attributes: ["@default(false)"]
+        description: "Work this shift even on holidays"
+
+      metadata:
+        type: Metadata
+        attributes: ["@audit_metadata"]
+        description: "Audit metadata"
+
+    indexes:
+      - type: index
+        fields: [company_id]

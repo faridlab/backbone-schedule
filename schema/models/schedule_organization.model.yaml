@@ -1,0 +1,63 @@
+# =============================================================================
+# Domain: schedule
+# Entity: ScheduleOrganization
+# Description: Org-level schedule assignment with override times.
+# =============================================================================
+
+models:
+  - name: ScheduleOrganization
+    collection: schedule_organizations
+    description: "Org-level schedule assignment with override times."
+
+    fields:
+      id:
+        type: uuid
+        attributes: ["@id", "@default(uuid)"]
+        description: "Unique schedule organization id"
+
+      company_id:
+        type: uuid
+        attributes: ["@required", "@exclude_from_foreign_key_check"]
+        description: "# logical FK organization.Company.id"
+
+      structure_id:
+        type: uuid?
+        attributes: ["@exclude_from_foreign_key_check"]
+        description: "# logical FK organization.Structure.id (Structure not yet in org — see module notes)"
+
+      name:
+        type: string?
+        attributes: ["@length(max=120)"]
+        description: "Optional override label"
+
+      order_number:
+        type: integer
+        attributes: ["@default(0)"]
+        description: "Display order"
+
+      start_date:
+        type: date?
+        description: "Effective from"
+
+      end_date:
+        type: date?
+        description: "Effective until"
+
+      time_in:
+        type: time
+        attributes: ["@required"]
+        description: "Override shift start"
+
+      time_out:
+        type: time
+        attributes: ["@required"]
+        description: "Override shift end"
+
+      metadata:
+        type: Metadata
+        attributes: ["@audit_metadata"]
+        description: "Audit metadata"
+
+    indexes:
+      - type: index
+        fields: [company_id]

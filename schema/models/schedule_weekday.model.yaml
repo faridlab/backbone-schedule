@@ -1,0 +1,75 @@
+# =============================================================================
+# Domain: schedule
+# Entity: ScheduleWeekday
+# Description: Weekly recurrence for a schedule (which days are working days).
+#              Keeps salt-laravel's 7-column form (sun..sat). Normalize later
+#              if recurrence rules grow beyond weekly.
+# =============================================================================
+
+models:
+  - name: ScheduleWeekday
+    collection: schedule_weekdays
+    description: "Weekly recurrence for a schedule (which days are working days)."
+
+    fields:
+      id:
+        type: uuid
+        attributes: ["@id", "@default(uuid)"]
+        description: "Unique schedule weekday id"
+
+      schedule_id:
+        type: uuid
+        attributes: ["@required", "@foreign_key(Schedule.id)"]
+        description: "# FK schedules.id"
+
+      sun:
+        type: WeekdayType
+        attributes: ["@default(weekend)"]
+        description: "Sunday"
+
+      mon:
+        type: WeekdayType
+        attributes: ["@default(weekday)"]
+        description: "Monday"
+
+      tue:
+        type: WeekdayType
+        attributes: ["@default(weekday)"]
+        description: "Tuesday"
+
+      wed:
+        type: WeekdayType
+        attributes: ["@default(weekday)"]
+        description: "Wednesday"
+
+      thu:
+        type: WeekdayType
+        attributes: ["@default(weekday)"]
+        description: "Thursday"
+
+      fri:
+        type: WeekdayType
+        attributes: ["@default(weekday)"]
+        description: "Friday"
+
+      sat:
+        type: WeekdayType
+        attributes: ["@default(weekend)"]
+        description: "Saturday"
+
+      metadata:
+        type: Metadata
+        attributes: ["@audit_metadata"]
+        description: "Audit metadata"
+
+    indexes:
+      - type: index
+        fields: [schedule_id]
+
+enums:
+  - name: WeekdayType
+    description: "Working day vs weekend"
+    variants:
+      - name: weekday
+        default: true
+      - name: weekend

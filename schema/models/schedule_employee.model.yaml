@@ -1,0 +1,55 @@
+# =============================================================================
+# Domain: schedule
+# Entity: ScheduleEmployee
+# Description: Per-employee roster override for a specific date.
+# =============================================================================
+
+models:
+  - name: ScheduleEmployee
+    collection: schedule_employees
+    description: "Per-employee roster override for a specific date."
+
+    fields:
+      id:
+        type: uuid
+        attributes: ["@id", "@default(uuid)"]
+        description: "Unique schedule employee id"
+
+      company_id:
+        type: uuid
+        attributes: ["@required", "@exclude_from_foreign_key_check"]
+        description: "# logical FK organization.Company.id"
+
+      employee_id:
+        type: uuid
+        attributes: ["@required", "@exclude_from_foreign_key_check"]
+        description: "# logical FK employee.Employee.id"
+
+      schedule_date:
+        type: date
+        attributes: ["@required"]
+        description: "The roster date"
+
+      order_number:
+        type: integer
+        attributes: ["@default(0)"]
+        description: "Display order"
+
+      time_in:
+        type: time
+        attributes: ["@required"]
+        description: "Override shift start"
+
+      time_out:
+        type: time
+        attributes: ["@required"]
+        description: "Override shift end"
+
+      metadata:
+        type: Metadata
+        attributes: ["@audit_metadata"]
+        description: "Audit metadata"
+
+    indexes:
+      - type: index
+        fields: [employee_id, schedule_date]
