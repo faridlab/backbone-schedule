@@ -32,9 +32,6 @@ use crate::domain::entity::AuditMetadata;
 #[cfg_attr(feature = "validation", derive(Validate))]
 #[serde(rename_all = "camelCase")]
 pub struct CreateScheduleOrganizationDto {
-    #[cfg_attr(feature = "openapi", schema(example = "550e8400-e29b-41d4-a716-446655440000"))]
-    #[serde(alias = "company_id")]
-    pub company_id: Uuid,
     #[serde(default, skip_serializing_if = "Option::is_none", alias = "structure_id")]
     pub structure_id: Option<Uuid>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -65,9 +62,6 @@ pub struct CreateScheduleOrganizationDto {
 #[cfg_attr(feature = "validation", derive(Validate))]
 #[serde(rename_all = "camelCase")]
 pub struct UpdateScheduleOrganizationDto {
-    #[cfg_attr(feature = "openapi", schema(example = "550e8400-e29b-41d4-a716-446655440000"))]
-    #[serde(alias = "company_id")]
-    pub company_id: Uuid,
     #[serde(default, skip_serializing_if = "Option::is_none", alias = "structure_id")]
     pub structure_id: Option<Uuid>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -98,9 +92,6 @@ pub struct UpdateScheduleOrganizationDto {
 #[cfg_attr(feature = "validation", derive(Validate))]
 #[serde(rename_all = "camelCase")]
 pub struct PatchScheduleOrganizationDto {
-    #[cfg_attr(feature = "openapi", schema(example = "550e8400-e29b-41d4-a716-446655440000"))]
-    #[serde(skip_serializing_if = "Option::is_none", alias = "company_id")]
-    pub company_id: Option<Uuid>,
     #[serde(skip_serializing_if = "Option::is_none", alias = "structure_id")]
     pub structure_id: Option<Uuid>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -121,7 +112,7 @@ pub struct PatchScheduleOrganizationDto {
 impl PatchScheduleOrganizationDto {
     /// Check if any field is set
     pub fn has_changes(&self) -> bool {
-        self.company_id.is_some() || self.structure_id.is_some() || self.name.is_some() || self.order_number.is_some() || self.start_date.is_some() || self.end_date.is_some() || self.time_in.is_some() || self.time_out.is_some()
+        self.structure_id.is_some() || self.name.is_some() || self.order_number.is_some() || self.start_date.is_some() || self.end_date.is_some() || self.time_in.is_some() || self.time_out.is_some()
     }
 }
 
@@ -139,8 +130,6 @@ impl PatchScheduleOrganizationDto {
 pub struct ScheduleOrganizationResponseDto {
     #[cfg_attr(feature = "openapi", schema(example = "550e8400-e29b-41d4-a716-446655440000"))]
     pub id: Uuid,
-    #[cfg_attr(feature = "openapi", schema(example = "550e8400-e29b-41d4-a716-446655440000"))]
-    pub company_id: Uuid,
     pub structure_id: Option<Uuid>,
     pub name: Option<String>,
     #[cfg_attr(feature = "openapi", schema(example = 42))]
@@ -206,9 +195,9 @@ impl ScheduleOrganizationListResponseDto {
 #[serde(rename_all = "camelCase")]
 pub struct ScheduleOrganizationSummaryDto {
     pub id: Uuid,
-    pub company_id: Uuid,
     pub structure_id: Option<Uuid>,
     pub name: Option<String>,
+    pub order_number: i32,
     pub created_at: Option<DateTime<Utc>>,
 }
 
@@ -220,7 +209,6 @@ impl From<ScheduleOrganization> for ScheduleOrganizationResponseDto {
     fn from(entity: ScheduleOrganization) -> Self {
         Self {
             id: entity.id,
-            company_id: entity.company_id,
             structure_id: entity.structure_id,
             name: entity.name,
             order_number: entity.order_number,
@@ -238,9 +226,9 @@ impl From<ScheduleOrganization> for ScheduleOrganizationSummaryDto {
         let created_at = backbone_core::PersistentEntity::created_at(&entity);
         Self {
             id: entity.id,
-            company_id: entity.company_id,
             structure_id: entity.structure_id,
             name: entity.name,
+            order_number: entity.order_number,
             created_at,
         }
     }
@@ -250,7 +238,6 @@ impl From<CreateScheduleOrganizationDto> for ScheduleOrganization {
     fn from(dto: CreateScheduleOrganizationDto) -> Self {
         Self {
             id: Uuid::new_v4(),
-            company_id: dto.company_id,
             structure_id: dto.structure_id,
             name: dto.name,
             order_number: dto.order_number,
@@ -267,7 +254,6 @@ impl From<&ScheduleOrganization> for ScheduleOrganizationResponseDto {
     fn from(entity: &ScheduleOrganization) -> Self {
         Self {
             id: entity.id.clone(),
-            company_id: entity.company_id.clone(),
             structure_id: entity.structure_id.clone(),
             name: entity.name.clone(),
             order_number: entity.order_number.clone(),
@@ -288,7 +274,6 @@ impl backbone_core::FromCreateDto<CreateScheduleOrganizationDto> for ScheduleOrg
 
 impl backbone_core::ApplyUpdateDto<UpdateScheduleOrganizationDto> for ScheduleOrganization {
     fn apply_update(mut self, dto: UpdateScheduleOrganizationDto) -> backbone_core::ServiceResult<Self> {
-        self.company_id = dto.company_id;
         self.structure_id = dto.structure_id;
         self.name = dto.name;
         self.order_number = dto.order_number;
@@ -308,4 +293,3 @@ impl backbone_core::ApplyUpdateDto<UpdateScheduleOrganizationDto> for ScheduleOr
 // Add custom DTOs specific to ScheduleOrganization here.
 // This section will be preserved during regeneration.
 // >>> END CUSTOM DTOs
-

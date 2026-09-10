@@ -48,7 +48,6 @@ impl std::ops::Deref for ScheduleId {
 #[derive(Debug, Clone, Serialize, Deserialize, FromRow)]
 pub struct Schedule {
     pub id: Uuid,
-    pub company_id: Uuid,
     pub name: String,
     pub is_default: bool,
     pub order_number: i32,
@@ -65,14 +64,13 @@ pub struct Schedule {
 impl Schedule {
     /// Create a builder for Schedule
     pub fn builder() -> ScheduleBuilder {
-        ScheduleBuilder::default()
+        <ScheduleBuilder as Default>::default()
     }
 
     /// Create a new Schedule with required fields
-    pub fn new(company_id: Uuid, name: String, is_default: bool, order_number: i32, time_in: NaiveTime, time_out: NaiveTime, is_override_holiday: bool) -> Self {
+    pub fn new(name: String, is_default: bool, order_number: i32, time_in: NaiveTime, time_out: NaiveTime, is_override_holiday: bool) -> Self {
         Self {
             id: Uuid::new_v4(),
-            company_id,
             name,
             is_default,
             order_number,
@@ -160,9 +158,6 @@ impl Schedule {
     pub fn apply_patch(&mut self, fields: std::collections::HashMap<String, serde_json::Value>) {
         for (key, value) in fields {
             match key.as_str() {
-                "company_id" => {
-                    if let Ok(v) = serde_json::from_value(value) { self.company_id = v; }
-                }
                 "name" => {
                     if let Ok(v) = serde_json::from_value(value) { self.name = v; }
                 }
@@ -241,14 +236,10 @@ impl backbone_orm::EntityRepoMeta for Schedule {
     fn column_types() -> std::collections::HashMap<String, String> {
         let mut m = std::collections::HashMap::new();
         m.insert("id".to_string(), "uuid".to_string());
-        m.insert("company_id".to_string(), "uuid".to_string());
         m
     }
     fn search_fields() -> &'static [&'static str] {
         &["name"]
-    }
-    fn company_field() -> Option<&'static str> {
-        Some("company_id")
     }
 }
 
@@ -258,7 +249,6 @@ impl backbone_orm::EntityRepoMeta for Schedule {
 /// System fields (id, metadata, timestamps) are auto-initialized.
 #[derive(Debug, Clone, Default)]
 pub struct ScheduleBuilder {
-    company_id: Option<Uuid>,
     name: Option<String>,
     is_default: Option<bool>,
     order_number: Option<i32>,
@@ -270,12 +260,6 @@ pub struct ScheduleBuilder {
 }
 
 impl ScheduleBuilder {
-    /// Set the company_id field (required)
-    pub fn company_id(mut self, value: Uuid) -> Self {
-        self.company_id = Some(value);
-        self
-    }
-
     /// Set the name field (required)
     pub fn name(mut self, value: String) -> Self {
         self.name = Some(value);
@@ -328,14 +312,12 @@ impl ScheduleBuilder {
     ///
     /// Returns Err if any required field without a default is missing.
     pub fn build(self) -> Result<Schedule, String> {
-        let company_id = self.company_id.ok_or_else(|| "company_id is required".to_string())?;
         let name = self.name.ok_or_else(|| "name is required".to_string())?;
         let time_in = self.time_in.ok_or_else(|| "time_in is required".to_string())?;
         let time_out = self.time_out.ok_or_else(|| "time_out is required".to_string())?;
 
         Ok(Schedule {
             id: Uuid::new_v4(),
-            company_id,
             name,
             is_default: self.is_default.unwrap_or(false),
             order_number: self.order_number.unwrap_or(0),

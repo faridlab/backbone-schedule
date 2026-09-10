@@ -33,9 +33,6 @@ use crate::domain::entity::AuditMetadata;
 #[serde(rename_all = "camelCase")]
 pub struct CreateScheduleEmployeeDto {
     #[cfg_attr(feature = "openapi", schema(example = "550e8400-e29b-41d4-a716-446655440000"))]
-    #[serde(alias = "company_id")]
-    pub company_id: Uuid,
-    #[cfg_attr(feature = "openapi", schema(example = "550e8400-e29b-41d4-a716-446655440000"))]
     #[serde(alias = "employee_id")]
     pub employee_id: Uuid,
     #[cfg_attr(feature = "openapi", schema(example = "2024-01-01"))]
@@ -63,9 +60,6 @@ pub struct CreateScheduleEmployeeDto {
 #[cfg_attr(feature = "validation", derive(Validate))]
 #[serde(rename_all = "camelCase")]
 pub struct UpdateScheduleEmployeeDto {
-    #[cfg_attr(feature = "openapi", schema(example = "550e8400-e29b-41d4-a716-446655440000"))]
-    #[serde(alias = "company_id")]
-    pub company_id: Uuid,
     #[cfg_attr(feature = "openapi", schema(example = "550e8400-e29b-41d4-a716-446655440000"))]
     #[serde(alias = "employee_id")]
     pub employee_id: Uuid,
@@ -95,9 +89,6 @@ pub struct UpdateScheduleEmployeeDto {
 #[serde(rename_all = "camelCase")]
 pub struct PatchScheduleEmployeeDto {
     #[cfg_attr(feature = "openapi", schema(example = "550e8400-e29b-41d4-a716-446655440000"))]
-    #[serde(skip_serializing_if = "Option::is_none", alias = "company_id")]
-    pub company_id: Option<Uuid>,
-    #[cfg_attr(feature = "openapi", schema(example = "550e8400-e29b-41d4-a716-446655440000"))]
     #[serde(skip_serializing_if = "Option::is_none", alias = "employee_id")]
     pub employee_id: Option<Uuid>,
     #[cfg_attr(feature = "openapi", schema(example = "2024-01-01"))]
@@ -115,7 +106,7 @@ pub struct PatchScheduleEmployeeDto {
 impl PatchScheduleEmployeeDto {
     /// Check if any field is set
     pub fn has_changes(&self) -> bool {
-        self.company_id.is_some() || self.employee_id.is_some() || self.schedule_date.is_some() || self.order_number.is_some() || self.time_in.is_some() || self.time_out.is_some()
+        self.employee_id.is_some() || self.schedule_date.is_some() || self.order_number.is_some() || self.time_in.is_some() || self.time_out.is_some()
     }
 }
 
@@ -133,8 +124,6 @@ impl PatchScheduleEmployeeDto {
 pub struct ScheduleEmployeeResponseDto {
     #[cfg_attr(feature = "openapi", schema(example = "550e8400-e29b-41d4-a716-446655440000"))]
     pub id: Uuid,
-    #[cfg_attr(feature = "openapi", schema(example = "550e8400-e29b-41d4-a716-446655440000"))]
-    pub company_id: Uuid,
     #[cfg_attr(feature = "openapi", schema(example = "550e8400-e29b-41d4-a716-446655440000"))]
     pub employee_id: Uuid,
     #[cfg_attr(feature = "openapi", schema(example = "2024-01-01"))]
@@ -200,9 +189,9 @@ impl ScheduleEmployeeListResponseDto {
 #[serde(rename_all = "camelCase")]
 pub struct ScheduleEmployeeSummaryDto {
     pub id: Uuid,
-    pub company_id: Uuid,
     pub employee_id: Uuid,
     pub schedule_date: NaiveDate,
+    pub order_number: i32,
     pub created_at: Option<DateTime<Utc>>,
 }
 
@@ -214,7 +203,6 @@ impl From<ScheduleEmployee> for ScheduleEmployeeResponseDto {
     fn from(entity: ScheduleEmployee) -> Self {
         Self {
             id: entity.id,
-            company_id: entity.company_id,
             employee_id: entity.employee_id,
             schedule_date: entity.schedule_date,
             order_number: entity.order_number,
@@ -230,9 +218,9 @@ impl From<ScheduleEmployee> for ScheduleEmployeeSummaryDto {
         let created_at = backbone_core::PersistentEntity::created_at(&entity);
         Self {
             id: entity.id,
-            company_id: entity.company_id,
             employee_id: entity.employee_id,
             schedule_date: entity.schedule_date,
+            order_number: entity.order_number,
             created_at,
         }
     }
@@ -242,7 +230,6 @@ impl From<CreateScheduleEmployeeDto> for ScheduleEmployee {
     fn from(dto: CreateScheduleEmployeeDto) -> Self {
         Self {
             id: Uuid::new_v4(),
-            company_id: dto.company_id,
             employee_id: dto.employee_id,
             schedule_date: dto.schedule_date,
             order_number: dto.order_number,
@@ -257,7 +244,6 @@ impl From<&ScheduleEmployee> for ScheduleEmployeeResponseDto {
     fn from(entity: &ScheduleEmployee) -> Self {
         Self {
             id: entity.id.clone(),
-            company_id: entity.company_id.clone(),
             employee_id: entity.employee_id.clone(),
             schedule_date: entity.schedule_date.clone(),
             order_number: entity.order_number.clone(),
@@ -276,7 +262,6 @@ impl backbone_core::FromCreateDto<CreateScheduleEmployeeDto> for ScheduleEmploye
 
 impl backbone_core::ApplyUpdateDto<UpdateScheduleEmployeeDto> for ScheduleEmployee {
     fn apply_update(mut self, dto: UpdateScheduleEmployeeDto) -> backbone_core::ServiceResult<Self> {
-        self.company_id = dto.company_id;
         self.employee_id = dto.employee_id;
         self.schedule_date = dto.schedule_date;
         self.order_number = dto.order_number;
@@ -294,4 +279,3 @@ impl backbone_core::ApplyUpdateDto<UpdateScheduleEmployeeDto> for ScheduleEmploy
 // Add custom DTOs specific to ScheduleEmployee here.
 // This section will be preserved during regeneration.
 // >>> END CUSTOM DTOs
-

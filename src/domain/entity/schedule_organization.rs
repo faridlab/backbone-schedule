@@ -48,7 +48,6 @@ impl std::ops::Deref for ScheduleOrganizationId {
 #[derive(Debug, Clone, Serialize, Deserialize, FromRow)]
 pub struct ScheduleOrganization {
     pub id: Uuid,
-    pub company_id: Uuid,
     pub structure_id: Option<Uuid>,
     pub name: Option<String>,
     pub order_number: i32,
@@ -64,14 +63,13 @@ pub struct ScheduleOrganization {
 impl ScheduleOrganization {
     /// Create a builder for ScheduleOrganization
     pub fn builder() -> ScheduleOrganizationBuilder {
-        ScheduleOrganizationBuilder::default()
+        <ScheduleOrganizationBuilder as Default>::default()
     }
 
     /// Create a new ScheduleOrganization with required fields
-    pub fn new(company_id: Uuid, order_number: i32, time_in: NaiveTime, time_out: NaiveTime) -> Self {
+    pub fn new(order_number: i32, time_in: NaiveTime, time_out: NaiveTime) -> Self {
         Self {
             id: Uuid::new_v4(),
-            company_id,
             structure_id: None,
             name: None,
             order_number,
@@ -170,9 +168,6 @@ impl ScheduleOrganization {
     pub fn apply_patch(&mut self, fields: std::collections::HashMap<String, serde_json::Value>) {
         for (key, value) in fields {
             match key.as_str() {
-                "company_id" => {
-                    if let Ok(v) = serde_json::from_value(value) { self.company_id = v; }
-                }
                 "structure_id" => {
                     if let Ok(v) = serde_json::from_value(value) { self.structure_id = v; }
                 }
@@ -248,15 +243,11 @@ impl backbone_orm::EntityRepoMeta for ScheduleOrganization {
     fn column_types() -> std::collections::HashMap<String, String> {
         let mut m = std::collections::HashMap::new();
         m.insert("id".to_string(), "uuid".to_string());
-        m.insert("company_id".to_string(), "uuid".to_string());
         m.insert("structure_id".to_string(), "uuid".to_string());
         m
     }
     fn search_fields() -> &'static [&'static str] {
         &[]
-    }
-    fn company_field() -> Option<&'static str> {
-        Some("company_id")
     }
 }
 
@@ -266,7 +257,6 @@ impl backbone_orm::EntityRepoMeta for ScheduleOrganization {
 /// System fields (id, metadata, timestamps) are auto-initialized.
 #[derive(Debug, Clone, Default)]
 pub struct ScheduleOrganizationBuilder {
-    company_id: Option<Uuid>,
     structure_id: Option<Uuid>,
     name: Option<String>,
     order_number: Option<i32>,
@@ -277,12 +267,6 @@ pub struct ScheduleOrganizationBuilder {
 }
 
 impl ScheduleOrganizationBuilder {
-    /// Set the company_id field (required)
-    pub fn company_id(mut self, value: Uuid) -> Self {
-        self.company_id = Some(value);
-        self
-    }
-
     /// Set the structure_id field (optional)
     pub fn structure_id(mut self, value: Uuid) -> Self {
         self.structure_id = Some(value);
@@ -329,13 +313,11 @@ impl ScheduleOrganizationBuilder {
     ///
     /// Returns Err if any required field without a default is missing.
     pub fn build(self) -> Result<ScheduleOrganization, String> {
-        let company_id = self.company_id.ok_or_else(|| "company_id is required".to_string())?;
         let time_in = self.time_in.ok_or_else(|| "time_in is required".to_string())?;
         let time_out = self.time_out.ok_or_else(|| "time_out is required".to_string())?;
 
         Ok(ScheduleOrganization {
             id: Uuid::new_v4(),
-            company_id,
             structure_id: self.structure_id,
             name: self.name,
             order_number: self.order_number.unwrap_or(0),

@@ -44,7 +44,6 @@ pub struct ScheduleOrganizationPaginatedResult {
 /// Filter parameters for list queries
 #[derive(Debug, Clone, Default)]
 pub struct ScheduleOrganizationFilter {
-    pub company_id: Option<Uuid>,
     pub structure_id: Option<Uuid>,
     pub name: Option<String>,
 }
@@ -52,7 +51,7 @@ pub struct ScheduleOrganizationFilter {
 impl ScheduleOrganizationFilter {
     /// Check if any filter is set
     pub fn has_filters(&self) -> bool {
-        self.company_id.is_some() || self.structure_id.is_some() || self.name.is_some()
+        self.structure_id.is_some() || self.name.is_some()
     }
 }
 

@@ -7,7 +7,6 @@
 
 use async_trait::async_trait;
 use anyhow::Result;
-use uuid::Uuid;
 
 use crate::domain::entity::Schedule;
 
@@ -44,7 +43,6 @@ pub struct SchedulePaginatedResult {
 /// Filter parameters for list queries
 #[derive(Debug, Clone, Default)]
 pub struct ScheduleFilter {
-    pub company_id: Option<Uuid>,
     pub name: Option<String>,
     pub is_default: Option<bool>,
     pub is_override_holiday: Option<bool>,
@@ -53,7 +51,7 @@ pub struct ScheduleFilter {
 impl ScheduleFilter {
     /// Check if any filter is set
     pub fn has_filters(&self) -> bool {
-        self.company_id.is_some() || self.name.is_some() || self.is_default.is_some() || self.is_override_holiday.is_some()
+        self.name.is_some() || self.is_default.is_some() || self.is_override_holiday.is_some()
     }
 }
 

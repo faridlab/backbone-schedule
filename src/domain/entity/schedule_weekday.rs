@@ -66,7 +66,7 @@ pub struct ScheduleWeekday {
 impl ScheduleWeekday {
     /// Create a builder for ScheduleWeekday
     pub fn builder() -> ScheduleWeekdayBuilder {
-        ScheduleWeekdayBuilder::default()
+        <ScheduleWeekdayBuilder as Default>::default()
     }
 
     /// Create a new ScheduleWeekday with required fields
@@ -311,13 +311,13 @@ impl ScheduleWeekdayBuilder {
         Ok(ScheduleWeekday {
             id: Uuid::new_v4(),
             schedule_id,
-            sun: self.sun.unwrap_or(WeekdayType::default()),
-            mon: self.mon.unwrap_or(WeekdayType::default()),
-            tue: self.tue.unwrap_or(WeekdayType::default()),
-            wed: self.wed.unwrap_or(WeekdayType::default()),
-            thu: self.thu.unwrap_or(WeekdayType::default()),
-            fri: self.fri.unwrap_or(WeekdayType::default()),
-            sat: self.sat.unwrap_or(WeekdayType::default()),
+            sun: self.sun.unwrap_or_default(),
+            mon: self.mon.unwrap_or_default(),
+            tue: self.tue.unwrap_or_default(),
+            wed: self.wed.unwrap_or_default(),
+            thu: self.thu.unwrap_or_default(),
+            fri: self.fri.unwrap_or_default(),
+            sat: self.sat.unwrap_or_default(),
             metadata: AuditMetadata::default(),
         })
     }

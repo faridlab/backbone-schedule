@@ -1491,7 +1491,6 @@ components:
       type: object
       required:
         - id
-        - company_id
         - name
         - is_default
         - order_number
@@ -1501,9 +1500,6 @@ components:
         - metadata
       properties:
         id:
-          type: string
-          format: uuid
-        company_id:
           type: string
           format: uuid
         name:
@@ -1548,7 +1544,6 @@ components:
     CreateScheduleRequest:
       type: object
       required:
-        - company_id
         - name
         - is_default
         - order_number
@@ -1557,9 +1552,6 @@ components:
         - is_override_holiday
         - metadata
       properties:
-        company_id:
-          type: string
-          format: uuid
         name:
           type: string
         is_default:
@@ -1589,7 +1581,6 @@ components:
     UpdateScheduleRequest:
       type: object
       required:
-        - company_id
         - name
         - is_default
         - order_number
@@ -1598,9 +1589,6 @@ components:
         - is_override_holiday
         - metadata
       properties:
-        company_id:
-          type: string
-          format: uuid
         name:
           type: string
         is_default:
@@ -1630,9 +1618,6 @@ components:
     PatchScheduleRequest:
       type: object
       properties:
-        company_id:
-          type: string
-          format: uuid
         name:
           type: string
         is_default:
@@ -1673,7 +1658,6 @@ components:
       type: object
       required:
         - id
-        - company_id
         - employee_id
         - schedule_date
         - order_number
@@ -1682,9 +1666,6 @@ components:
         - metadata
       properties:
         id:
-          type: string
-          format: uuid
-        company_id:
           type: string
           format: uuid
         employee_id:
@@ -1721,7 +1702,6 @@ components:
     CreateScheduleEmployeeRequest:
       type: object
       required:
-        - company_id
         - employee_id
         - schedule_date
         - order_number
@@ -1729,9 +1709,6 @@ components:
         - time_out
         - metadata
       properties:
-        company_id:
-          type: string
-          format: uuid
         employee_id:
           type: string
           format: uuid
@@ -1753,7 +1730,6 @@ components:
     UpdateScheduleEmployeeRequest:
       type: object
       required:
-        - company_id
         - employee_id
         - schedule_date
         - order_number
@@ -1761,9 +1737,6 @@ components:
         - time_out
         - metadata
       properties:
-        company_id:
-          type: string
-          format: uuid
         employee_id:
           type: string
           format: uuid
@@ -1785,9 +1758,6 @@ components:
     PatchScheduleEmployeeRequest:
       type: object
       properties:
-        company_id:
-          type: string
-          format: uuid
         employee_id:
           type: string
           format: uuid
@@ -1820,16 +1790,12 @@ components:
       type: object
       required:
         - id
-        - company_id
         - order_number
         - time_in
         - time_out
         - metadata
       properties:
         id:
-          type: string
-          format: uuid
-        company_id:
           type: string
           format: uuid
         structure_id:
@@ -1875,15 +1841,11 @@ components:
     CreateScheduleOrganizationRequest:
       type: object
       required:
-        - company_id
         - order_number
         - time_in
         - time_out
         - metadata
       properties:
-        company_id:
-          type: string
-          format: uuid
         structure_id:
           nullable: true
           type: string
@@ -1914,15 +1876,11 @@ components:
     UpdateScheduleOrganizationRequest:
       type: object
       required:
-        - company_id
         - order_number
         - time_in
         - time_out
         - metadata
       properties:
-        company_id:
-          type: string
-          format: uuid
         structure_id:
           nullable: true
           type: string
@@ -1953,9 +1911,6 @@ components:
     PatchScheduleOrganizationRequest:
       type: object
       properties:
-        company_id:
-          type: string
-          format: uuid
         structure_id:
           nullable: true
           type: string

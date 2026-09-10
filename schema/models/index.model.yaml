@@ -13,9 +13,11 @@ module: schedule
 version: 2
 schema: schedule
 
-# ADR-0014 company fence (Wave 1 P0 sweep, 2026-08-16): shift rosters are company-private; schedule_weekday carries no company_id
-# (it is scoped via its schedule_id) and stays intentionally unfenced.
-company_fence: strict
+# Tenancy: none, by design (ADR-0029). The module is tenant-agnostic and reusable —
+# it ships no scoping column and no fence declaration. A composing backend-service
+# that wants these tables org-scoped declares them in its tenancy.yaml; the
+# decorator installs org_unit_id, the RLS policy, the kind guard, and per-unit
+# uniques at composition time.
 description: "shift / roster definitions and assignment"
 
 config:

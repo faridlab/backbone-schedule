@@ -8,7 +8,7 @@
 //! ## Usage from other modules
 //!
 //! ```text
-//! use schedule::exports::{ScheduleDto, ScheduleQueryService};
+//! use schedule::exports::{ScheduleDto};
 //! ```
 
 mod types;
@@ -39,9 +39,6 @@ pub use events::*;
 /// - `ScheduleWeekdayDto` - Data transfer object for ScheduleWeekday
 /// - `ScheduleWeekdaySummary` - Summary view of ScheduleWeekday
 /// - `ScheduleWeekdayId` - Type-safe ID wrapper
-///
-/// ## Public Services
-/// - `ScheduleQueryService` - Read-only queries
 ///
 /// ## Public Events
 /// - `ScheduleCreatedEvent` - Published when Schedule is created

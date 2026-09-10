@@ -48,7 +48,6 @@ impl From<ScheduleId> for Uuid {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ScheduleDto {
     pub id: ScheduleId,
-    pub company_id: Uuid,
     pub name: String,
     pub is_default: bool,
     pub order_number: i32,
@@ -111,7 +110,6 @@ impl From<ScheduleEmployeeId> for Uuid {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ScheduleEmployeeDto {
     pub id: ScheduleEmployeeId,
-    pub company_id: Uuid,
     pub employee_id: Uuid,
     pub schedule_date: NaiveDate,
     pub order_number: i32,
@@ -170,7 +168,6 @@ impl From<ScheduleOrganizationId> for Uuid {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ScheduleOrganizationDto {
     pub id: ScheduleOrganizationId,
-    pub company_id: Uuid,
     pub structure_id: Option<Uuid>,
     pub name: Option<String>,
     pub order_number: i32,

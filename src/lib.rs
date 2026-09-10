@@ -96,10 +96,33 @@ impl ScheduleModule {
     /// mount exposes unguarded writes. Compose a guarded router (read + validated
     /// writes) for production, or call `all_crud_routes()` to opt into the full
     /// unguarded surface explicitly.
-    #[deprecated(note = "mounts unvalidated generic CRUD on every entity; compose a guarded router for production, or call all_crud_routes() for the intentional full/unguarded surface")]
+    #[deprecated(note = "mounts unvalidated generic CRUD; prefer readonly_routes() + validated writes, or all_crud_routes() for the full/unguarded surface")]
     pub fn routes(&self) -> Router {
         self.all_crud_routes()
     }
+
+    /// Read-only routes for every entity (GET endpoints only) — the safe base.
+    ///
+    /// Generic mutation can't reach here, so this surface cannot bypass a
+    /// validated write service's invariants. Use this as the production base and
+    /// merge validated write routes (or a write service's HTTP layer) onto it.
+    pub fn readonly_routes(&self) -> Router {
+        use presentation::http::{
+            create_schedule_read_routes,
+            create_schedule_employee_read_routes,
+            create_schedule_organization_read_routes,
+            create_schedule_weekday_read_routes,
+        };
+
+        Router::new()
+            .merge(create_schedule_read_routes(self.schedule_service.clone()))
+            .merge(create_schedule_employee_read_routes(self.schedule_employee_service.clone()))
+            .merge(create_schedule_organization_read_routes(self.schedule_organization_service.clone()))
+            .merge(create_schedule_weekday_read_routes(self.schedule_weekday_service.clone()))
+    }
+
+    // <<< CUSTOM METHODS
+    // END CUSTOM
 }
 
 /// Builder for ScheduleModule
