@@ -3,6 +3,7 @@ name = "backbone-schedule"
 version = "0.2.14"
 edition = "2021"
 description = "shift / roster definitions and assignment"
+license = "MIT OR Apache-2.0"
 
 [lib]
 path = "src/lib.rs"
