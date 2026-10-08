@@ -206,6 +206,9 @@ impl backbone_orm::EntityRepoMeta for ScheduleEmployee {
         let mut m = std::collections::HashMap::new();
         m.insert("id".to_string(), "uuid".to_string());
         m.insert("employee_id".to_string(), "uuid".to_string());
+        m.insert("schedule_date".to_string(), "date".to_string());
+        m.insert("time_in".to_string(), "time".to_string());
+        m.insert("time_out".to_string(), "time".to_string());
         m
     }
     fn search_fields() -> &'static [&'static str] {

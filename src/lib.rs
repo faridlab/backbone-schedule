@@ -24,6 +24,8 @@ pub mod application;
 pub mod presentation;
 pub mod seeders;
 pub mod exports;
+// <<< CUSTOM MODULES
+// END CUSTOM
 
 // Re-exports for convenience - Domain entities
 pub use domain::entity::*;
@@ -128,6 +130,8 @@ impl ScheduleModule {
 /// Builder for ScheduleModule
 pub struct ScheduleModuleBuilder {
     db_pool: Option<PgPool>,
+    // <<< CUSTOM BUILDER FIELDS
+    // END CUSTOM
 }
 
 impl ScheduleModuleBuilder {
@@ -135,6 +139,8 @@ impl ScheduleModuleBuilder {
     pub fn new() -> Self {
         Self {
             db_pool: None,
+            // <<< CUSTOM BUILDER DEFAULTS
+            // END CUSTOM
         }
     }
 

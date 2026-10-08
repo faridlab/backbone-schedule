@@ -12,7 +12,6 @@ pub mod schedule_organization_api_test;
 pub mod schedule_weekday_api_test;
 
 // Re-exports for convenience
-pub use crud_test_base::*;
 pub use schedule_api_test::*;
 pub use schedule_employee_api_test::*;
 pub use schedule_organization_api_test::*;
