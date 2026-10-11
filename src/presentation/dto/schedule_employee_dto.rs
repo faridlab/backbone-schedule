@@ -275,7 +275,7 @@ impl backbone_core::ApplyUpdateDto<UpdateScheduleEmployeeDto> for ScheduleEmploy
 // Custom DTOs
 // =============================================================================
 
-// <<< CUSTOM DTOs
 // Add custom DTOs specific to ScheduleEmployee here.
 // This section will be preserved during regeneration.
 // >>> END CUSTOM DTOs
+

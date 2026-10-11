@@ -24,8 +24,6 @@ pub mod application;
 pub mod presentation;
 pub mod seeders;
 pub mod exports;
-// <<< CUSTOM MODULES
-// END CUSTOM
 
 // Re-exports for convenience - Domain entities
 pub use domain::entity::*;
@@ -63,8 +61,6 @@ pub struct ScheduleModule {
     pub(crate) schedule_employee_service: Arc<ScheduleEmployeeService>,
     pub(crate) schedule_organization_service: Arc<ScheduleOrganizationService>,
     pub(crate) schedule_weekday_service: Arc<ScheduleWeekdayService>,
-    // <<< CUSTOM FIELDS
-    // END CUSTOM
 }
 
 impl ScheduleModule {
@@ -123,15 +119,11 @@ impl ScheduleModule {
             .merge(create_schedule_weekday_read_routes(self.schedule_weekday_service.clone()))
     }
 
-    // <<< CUSTOM METHODS
-    // END CUSTOM
 }
 
 /// Builder for ScheduleModule
 pub struct ScheduleModuleBuilder {
     db_pool: Option<PgPool>,
-    // <<< CUSTOM BUILDER FIELDS
-    // END CUSTOM
 }
 
 impl ScheduleModuleBuilder {
@@ -139,8 +131,6 @@ impl ScheduleModuleBuilder {
     pub fn new() -> Self {
         Self {
             db_pool: None,
-            // <<< CUSTOM BUILDER DEFAULTS
-            // END CUSTOM
         }
     }
 
@@ -150,8 +140,6 @@ impl ScheduleModuleBuilder {
         self
     }
 
-    // <<< CUSTOM - custom builder methods
-    // END CUSTOM
 
     /// Build the module with configured dependencies
     pub fn build(self) -> anyhow::Result<ScheduleModule> {
@@ -174,16 +162,12 @@ impl ScheduleModuleBuilder {
         let schedule_weekday_repository = Arc::new(ScheduleWeekdayRepository::new(db_pool.clone()));
         let schedule_weekday_service = Arc::new(ScheduleWeekdayService::with_repository(schedule_weekday_repository.clone()));
 
-        // <<< CUSTOM
-        // END CUSTOM
 
         Ok(ScheduleModule {
             schedule_service,
             schedule_employee_service,
             schedule_organization_service,
             schedule_weekday_service,
-            // <<< CUSTOM
-            // END CUSTOM
         })
     }
 }

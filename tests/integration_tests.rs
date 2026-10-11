@@ -65,3 +65,4 @@ async fn test_schedule_weekday_api() {
         panic!("{} tests failed", failed.len());
     }
 }
+

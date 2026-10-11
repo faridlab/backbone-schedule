@@ -11,8 +11,6 @@ use crate::domain::entity::ScheduleWeekday;
 /// enum containing a `Crud(CrudEvent<ScheduleWeekday>)` variant.
 pub type ScheduleWeekdayEvent = CrudEvent<ScheduleWeekday>;
 
-// <<< CUSTOM
-// END CUSTOM
 
 use backbone_messaging::{CrudEventPublisher, NoOpCrudEventPublisher};
 use std::sync::Arc;

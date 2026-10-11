@@ -18,5 +18,3 @@ use crate::domain::entity::ScheduleWeekday;
 /// service. `PermitAllPolicy` is the safe default until then.
 pub type ScheduleWeekdayDomainPolicy = PermitAllPolicy<ScheduleWeekday>;
 
-// <<< CUSTOM
-// END CUSTOM

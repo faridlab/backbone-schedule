@@ -32,5 +32,3 @@ pub type ScheduleEmployeeService = GenericCrudService<
     ScheduleEmployeeRepository,
 >;
 
-// <<< CUSTOM
-// END CUSTOM

@@ -20,5 +20,3 @@ pub use schedule_organization_event_handlers::ScheduleOrganizationEventHandler;
 pub use schedule_weekday_events::{ScheduleWeekdayEvent, ScheduleWeekdayEventPublisher, NoopScheduleWeekdayEventPublisher};
 pub use schedule_weekday_event_handlers::ScheduleWeekdayEventHandler;
 
-// <<< CUSTOM
-// END CUSTOM

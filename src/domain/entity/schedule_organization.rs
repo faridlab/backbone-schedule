@@ -194,8 +194,6 @@ impl ScheduleOrganization {
         }
     }
 
-    // <<< CUSTOM METHODS START >>>
-    // <<< CUSTOM METHODS END >>>
 }
 
 impl super::Entity for ScheduleOrganization {

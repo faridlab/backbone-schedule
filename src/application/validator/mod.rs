@@ -15,5 +15,3 @@ pub use schedule_employee_validator::{ScheduleEmployeeValidator, schedule_employ
 pub use schedule_organization_validator::{ScheduleOrganizationValidator, schedule_organization_validator};
 pub use schedule_weekday_validator::{ScheduleWeekdayValidator, schedule_weekday_validator};
 
-// <<< CUSTOM
-// END CUSTOM

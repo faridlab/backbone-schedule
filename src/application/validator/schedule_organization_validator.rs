@@ -16,9 +16,5 @@ pub type ScheduleOrganizationValidator = EntityValidator<ScheduleOrganization>;
 pub fn schedule_organization_validator() -> ScheduleOrganizationValidator {
     EntityValidator::new()
         .rule(OptionalNotBlank::new("name", |e: &ScheduleOrganization| e.name.as_deref()))
-    // <<< CUSTOM RULES
-    // END CUSTOM RULES
 }
 
-// <<< CUSTOM
-// END CUSTOM

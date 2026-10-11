@@ -32,5 +32,3 @@ pub type ScheduleService = GenericCrudService<
     ScheduleRepository,
 >;
 
-// <<< CUSTOM
-// END CUSTOM

@@ -11,5 +11,3 @@ pub mod schedule_employee_specification;
 pub mod schedule_organization_specification;
 pub mod schedule_weekday_specification;
 
-// <<< CUSTOM
-// END CUSTOM

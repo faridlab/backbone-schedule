@@ -12,12 +12,8 @@ pub mod schedule_employee_service;
 pub mod schedule_organization_service;
 pub mod schedule_weekday_service;
 
-// <<< CUSTOM
-// END CUSTOM
 
 pub use schedule_service::ScheduleService;
 pub use schedule_employee_service::ScheduleEmployeeService;
 pub use schedule_organization_service::ScheduleOrganizationService;
 pub use schedule_weekday_service::ScheduleWeekdayService;
-// <<< CUSTOM
-// END CUSTOM

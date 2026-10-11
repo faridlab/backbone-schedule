@@ -32,5 +32,3 @@ pub type ScheduleWeekdayService = GenericCrudService<
     ScheduleWeekdayRepository,
 >;
 
-// <<< CUSTOM
-// END CUSTOM

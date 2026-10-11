@@ -187,3 +187,4 @@ pub fn create_protected_schedule_organization_routes<A: AuthMiddleware + Send + 
             }
         }))
 }
+

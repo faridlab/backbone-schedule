@@ -186,3 +186,4 @@ pub fn create_protected_schedule_weekday_routes<A: AuthMiddleware + Send + Sync 
             }
         }))
 }
+

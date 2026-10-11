@@ -14,10 +14,6 @@ pub type ScheduleWeekdayValidator = EntityValidator<ScheduleWeekday>;
 /// Build a validator for ScheduleWeekday with all schema-defined field rules.
 pub fn schedule_weekday_validator() -> ScheduleWeekdayValidator {
     EntityValidator::new()
-    // <<< CUSTOM RULES
-    // END CUSTOM RULES
         // No schema-derived rules — add custom rules above.
 }
 
-// <<< CUSTOM
-// END CUSTOM

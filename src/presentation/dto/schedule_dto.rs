@@ -310,7 +310,7 @@ impl backbone_core::ApplyUpdateDto<UpdateScheduleDto> for Schedule {
 // Custom DTOs
 // =============================================================================
 
-// <<< CUSTOM DTOs
 // Add custom DTOs specific to Schedule here.
 // This section will be preserved during regeneration.
 // >>> END CUSTOM DTOs
+

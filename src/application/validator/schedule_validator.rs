@@ -16,9 +16,5 @@ pub type ScheduleValidator = EntityValidator<Schedule>;
 pub fn schedule_validator() -> ScheduleValidator {
     EntityValidator::new()
         .rule(RequiredString::new("name", |e: &Schedule| &e.name))
-    // <<< CUSTOM RULES
-    // END CUSTOM RULES
 }
 
-// <<< CUSTOM
-// END CUSTOM

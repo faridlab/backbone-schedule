@@ -10,8 +10,6 @@ mod schedule_organization_repository;
 mod schedule_weekday_repository;
 
 // Custom persistence modules
-// <<< CUSTOM
-// END CUSTOM
 
 // Re-exports
 pub use schedule_repository::ScheduleRepository;
@@ -27,5 +25,3 @@ pub use backbone_orm::repository::{
 };
 
 // Re-export custom persistence types
-// <<< CUSTOM
-// END CUSTOM

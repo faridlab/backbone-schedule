@@ -12,5 +12,3 @@ pub use schedule_employee_domain_policy::ScheduleEmployeeDomainPolicy;
 pub use schedule_organization_domain_policy::ScheduleOrganizationDomainPolicy;
 pub use schedule_weekday_domain_policy::ScheduleWeekdayDomainPolicy;
 
-// <<< CUSTOM
-// END CUSTOM

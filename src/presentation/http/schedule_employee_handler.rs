@@ -187,3 +187,4 @@ pub fn create_protected_schedule_employee_routes<A: AuthMiddleware + Send + Sync
             }
         }))
 }
+
