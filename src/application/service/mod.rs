@@ -17,3 +17,7 @@ pub use schedule_service::ScheduleService;
 pub use schedule_employee_service::ScheduleEmployeeService;
 pub use schedule_organization_service::ScheduleOrganizationService;
 pub use schedule_weekday_service::ScheduleWeekdayService;
+pub use schedule_service::ScheduleRowRules;
+pub use schedule_employee_service::ScheduleEmployeeRowRules;
+pub use schedule_organization_service::ScheduleOrganizationRowRules;
+pub use schedule_weekday_service::ScheduleWeekdayRowRules;
