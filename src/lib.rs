@@ -37,9 +37,6 @@ pub use application::service::ScheduleEmployeeService;
 pub use application::service::ScheduleOrganizationService;
 pub use application::service::ScheduleWeekdayService;
 
-// Re-exports - Workflows
-pub use application::workflows::*;
-
 use std::sync::Arc;
 use axum::Router;
 use sqlx::PgPool;
