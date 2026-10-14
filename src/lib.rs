@@ -145,19 +145,19 @@ impl ScheduleModuleBuilder {
 
         // Schedule service
         let schedule_repository = Arc::new(ScheduleRepository::new(db_pool.clone()));
-        let schedule_service = Arc::new(ScheduleService::with_repository(schedule_repository.clone()).with_guard(Arc::new(crate::application::service::ScheduleRowRules)));
+        let schedule_service = Arc::new(crate::application::service::build_schedule_service(schedule_repository.clone()));
 
         // ScheduleEmployee service
         let schedule_employee_repository = Arc::new(ScheduleEmployeeRepository::new(db_pool.clone()));
-        let schedule_employee_service = Arc::new(ScheduleEmployeeService::with_repository(schedule_employee_repository.clone()).with_guard(Arc::new(crate::application::service::ScheduleEmployeeRowRules)));
+        let schedule_employee_service = Arc::new(crate::application::service::build_schedule_employee_service(schedule_employee_repository.clone()));
 
         // ScheduleOrganization service
         let schedule_organization_repository = Arc::new(ScheduleOrganizationRepository::new(db_pool.clone()));
-        let schedule_organization_service = Arc::new(ScheduleOrganizationService::with_repository(schedule_organization_repository.clone()).with_guard(Arc::new(crate::application::service::ScheduleOrganizationRowRules)));
+        let schedule_organization_service = Arc::new(crate::application::service::build_schedule_organization_service(schedule_organization_repository.clone()));
 
         // ScheduleWeekday service
         let schedule_weekday_repository = Arc::new(ScheduleWeekdayRepository::new(db_pool.clone()));
-        let schedule_weekday_service = Arc::new(ScheduleWeekdayService::with_repository(schedule_weekday_repository.clone()).with_guard(Arc::new(crate::application::service::ScheduleWeekdayRowRules)));
+        let schedule_weekday_service = Arc::new(crate::application::service::build_schedule_weekday_service(schedule_weekday_repository.clone()));
 
 
         Ok(ScheduleModule {

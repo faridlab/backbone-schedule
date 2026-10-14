@@ -21,3 +21,35 @@ pub use schedule_service::ScheduleRowRules;
 pub use schedule_employee_service::ScheduleEmployeeRowRules;
 pub use schedule_organization_service::ScheduleOrganizationRowRules;
 pub use schedule_weekday_service::ScheduleWeekdayRowRules;
+
+/// A `ScheduleService` over `repository` with its write guard attached: the way to build it, so its writes are
+/// served only with the rules the schema declares.
+pub fn build_schedule_service(
+    repository: std::sync::Arc<crate::infrastructure::persistence::ScheduleRepository>,
+) -> ScheduleService {
+    ScheduleService::with_repository(repository).with_guard(std::sync::Arc::new(ScheduleRowRules))
+}
+
+/// A `ScheduleEmployeeService` over `repository` with its write guard attached: the way to build it, so its writes are
+/// served only with the rules the schema declares.
+pub fn build_schedule_employee_service(
+    repository: std::sync::Arc<crate::infrastructure::persistence::ScheduleEmployeeRepository>,
+) -> ScheduleEmployeeService {
+    ScheduleEmployeeService::with_repository(repository).with_guard(std::sync::Arc::new(ScheduleEmployeeRowRules))
+}
+
+/// A `ScheduleOrganizationService` over `repository` with its write guard attached: the way to build it, so its writes are
+/// served only with the rules the schema declares.
+pub fn build_schedule_organization_service(
+    repository: std::sync::Arc<crate::infrastructure::persistence::ScheduleOrganizationRepository>,
+) -> ScheduleOrganizationService {
+    ScheduleOrganizationService::with_repository(repository).with_guard(std::sync::Arc::new(ScheduleOrganizationRowRules))
+}
+
+/// A `ScheduleWeekdayService` over `repository` with its write guard attached: the way to build it, so its writes are
+/// served only with the rules the schema declares.
+pub fn build_schedule_weekday_service(
+    repository: std::sync::Arc<crate::infrastructure::persistence::ScheduleWeekdayRepository>,
+) -> ScheduleWeekdayService {
+    ScheduleWeekdayService::with_repository(repository).with_guard(std::sync::Arc::new(ScheduleWeekdayRowRules))
+}
