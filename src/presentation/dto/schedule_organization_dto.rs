@@ -33,7 +33,7 @@ pub struct CreateScheduleOrganizationDto {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[cfg_attr(feature = "openapi", schema(example = 42))]
-    #[serde(alias = "order_number")]
+    #[serde(default, alias = "order_number")]
     pub order_number: i32,
     #[serde(default, skip_serializing_if = "Option::is_none", alias = "start_date")]
     pub start_date: Option<NaiveDate>,
@@ -86,17 +86,17 @@ pub struct UpdateScheduleOrganizationDto {
 #[cfg_attr(feature = "openapi", derive(ToSchema))]
 #[serde(rename_all = "camelCase")]
 pub struct PatchScheduleOrganizationDto {
-    #[serde(skip_serializing_if = "Option::is_none", alias = "structure_id")]
-    pub structure_id: Option<Uuid>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
+    #[serde(default, deserialize_with = "crate::presentation::dto::double_option", alias = "structure_id")]
+    pub structure_id: Option<Option<Uuid>>,
+    #[serde(default, deserialize_with = "crate::presentation::dto::double_option")]
+    pub name: Option<Option<String>>,
     #[cfg_attr(feature = "openapi", schema(example = 42))]
     #[serde(skip_serializing_if = "Option::is_none", alias = "order_number")]
     pub order_number: Option<i32>,
-    #[serde(skip_serializing_if = "Option::is_none", alias = "start_date")]
-    pub start_date: Option<NaiveDate>,
-    #[serde(skip_serializing_if = "Option::is_none", alias = "end_date")]
-    pub end_date: Option<NaiveDate>,
+    #[serde(default, deserialize_with = "crate::presentation::dto::double_option", alias = "start_date")]
+    pub start_date: Option<Option<NaiveDate>>,
+    #[serde(default, deserialize_with = "crate::presentation::dto::double_option", alias = "end_date")]
+    pub end_date: Option<Option<NaiveDate>>,
     #[serde(skip_serializing_if = "Option::is_none", alias = "time_in")]
     pub time_in: Option<NaiveTime>,
     #[serde(skip_serializing_if = "Option::is_none", alias = "time_out")]
@@ -278,12 +278,4 @@ impl backbone_core::ApplyUpdateDto<UpdateScheduleOrganizationDto> for ScheduleOr
         Ok(self)
     }
 }
-
-// =============================================================================
-// Custom DTOs
-// =============================================================================
-
-// Add custom DTOs specific to ScheduleOrganization here.
-// This section will be preserved during regeneration.
-// >>> END CUSTOM DTOs
 

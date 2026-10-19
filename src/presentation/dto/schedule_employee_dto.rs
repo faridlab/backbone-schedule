@@ -35,7 +35,7 @@ pub struct CreateScheduleEmployeeDto {
     #[serde(alias = "schedule_date")]
     pub schedule_date: NaiveDate,
     #[cfg_attr(feature = "openapi", schema(example = 42))]
-    #[serde(alias = "order_number")]
+    #[serde(default, alias = "order_number")]
     pub order_number: i32,
     #[serde(alias = "time_in")]
     pub time_in: NaiveTime,
@@ -264,12 +264,4 @@ impl backbone_core::ApplyUpdateDto<UpdateScheduleEmployeeDto> for ScheduleEmploy
         Ok(self)
     }
 }
-
-// =============================================================================
-// Custom DTOs
-// =============================================================================
-
-// Add custom DTOs specific to ScheduleEmployee here.
-// This section will be preserved during regeneration.
-// >>> END CUSTOM DTOs
 

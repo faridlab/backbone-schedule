@@ -81,6 +81,13 @@ impl axum::response::IntoResponse for ScheduleOrganizationError {
 // Route Configuration
 // =============================================================================
 
+/// The permissions this entity's generic routes require: `schedule_organization:<action>` for `read`, `create`,
+/// `update`, `delete`, `restore` and `purge`, with any rename the schema's `requires:` declares.
+pub fn schedule_organization_permissions() -> backbone_core::http::CrudPermissions {
+    backbone_core::http::CrudPermissions::new("schedule_organization")
+        .in_module("schedule")
+}
+
 /// Create Axum router with all 16 Backbone endpoints for ScheduleOrganization.
 ///
 /// # Routes
@@ -110,21 +117,23 @@ impl axum::response::IntoResponse for ScheduleOrganizationError {
 /// let router = create_schedule_organization_routes(service);
 /// ```
 pub fn create_schedule_organization_routes(service: Arc<ScheduleOrganizationService>) -> Router {
-    BackboneCrudHandler::<ScheduleOrganizationService, ScheduleOrganization, CreateScheduleOrganizationDto, UpdateScheduleOrganizationDto, ScheduleOrganizationResponseDto>::routes(
+    BackboneCrudHandler::<ScheduleOrganizationService, ScheduleOrganization, CreateScheduleOrganizationDto, UpdateScheduleOrganizationDto, ScheduleOrganizationResponseDto>::routes_guarded(
         service,
         "/schedule_organizations",
+        schedule_organization_permissions(),
     )
 }
 
 /// Create Axum router with only the read (GET) endpoints for ScheduleOrganization.
 ///
-/// Safe for public, unauthenticated exposure (e.g., reference data).
+/// Each route requires the entity's `read` permission, so it needs an authenticated caller.
 /// Mutations must be served separately via `create_schedule_organization_write_routes`,
 /// typically wrapped in an auth middleware layer.
 pub fn create_schedule_organization_read_routes(service: Arc<ScheduleOrganizationService>) -> Router {
-    BackboneCrudHandler::<ScheduleOrganizationService, ScheduleOrganization, CreateScheduleOrganizationDto, UpdateScheduleOrganizationDto, ScheduleOrganizationResponseDto>::read_routes(
+    BackboneCrudHandler::<ScheduleOrganizationService, ScheduleOrganization, CreateScheduleOrganizationDto, UpdateScheduleOrganizationDto, ScheduleOrganizationResponseDto>::read_routes_guarded(
         service,
         "/schedule_organizations",
+        schedule_organization_permissions(),
     )
 }
 
@@ -140,9 +149,10 @@ pub fn create_schedule_organization_read_routes(service: Arc<ScheduleOrganizatio
 /// service (e.g. a command router over its domain engine), serve THAT instead
 /// for any mutation that must respect domain rules.
 pub fn create_schedule_organization_write_routes(service: Arc<ScheduleOrganizationService>) -> Router {
-    BackboneCrudHandler::<ScheduleOrganizationService, ScheduleOrganization, CreateScheduleOrganizationDto, UpdateScheduleOrganizationDto, ScheduleOrganizationResponseDto>::write_routes(
+    BackboneCrudHandler::<ScheduleOrganizationService, ScheduleOrganization, CreateScheduleOrganizationDto, UpdateScheduleOrganizationDto, ScheduleOrganizationResponseDto>::write_routes_guarded(
         service,
         "/schedule_organizations",
+        schedule_organization_permissions(),
     )
 }
 

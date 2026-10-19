@@ -32,13 +32,48 @@ pub struct CreateScheduleWeekdayDto {
     #[cfg_attr(feature = "openapi", schema(example = "550e8400-e29b-41d4-a716-446655440000"))]
     #[serde(alias = "schedule_id")]
     pub schedule_id: Uuid,
+    #[serde(default = "default_create_schedule_weekday_sun")]
     pub sun: WeekdayType,
+    #[serde(default = "default_create_schedule_weekday_mon")]
     pub mon: WeekdayType,
+    #[serde(default = "default_create_schedule_weekday_tue")]
     pub tue: WeekdayType,
+    #[serde(default = "default_create_schedule_weekday_wed")]
     pub wed: WeekdayType,
+    #[serde(default = "default_create_schedule_weekday_thu")]
     pub thu: WeekdayType,
+    #[serde(default = "default_create_schedule_weekday_fri")]
     pub fri: WeekdayType,
+    #[serde(default = "default_create_schedule_weekday_sat")]
     pub sat: WeekdayType,
+}
+
+fn default_create_schedule_weekday_sun() -> WeekdayType {
+    WeekdayType::Weekend
+}
+
+fn default_create_schedule_weekday_mon() -> WeekdayType {
+    WeekdayType::Weekday
+}
+
+fn default_create_schedule_weekday_tue() -> WeekdayType {
+    WeekdayType::Weekday
+}
+
+fn default_create_schedule_weekday_wed() -> WeekdayType {
+    WeekdayType::Weekday
+}
+
+fn default_create_schedule_weekday_thu() -> WeekdayType {
+    WeekdayType::Weekday
+}
+
+fn default_create_schedule_weekday_fri() -> WeekdayType {
+    WeekdayType::Weekday
+}
+
+fn default_create_schedule_weekday_sat() -> WeekdayType {
+    WeekdayType::Weekend
 }
 
 // =============================================================================
@@ -276,12 +311,4 @@ impl backbone_core::ApplyUpdateDto<UpdateScheduleWeekdayDto> for ScheduleWeekday
         Ok(self)
     }
 }
-
-// =============================================================================
-// Custom DTOs
-// =============================================================================
-
-// Add custom DTOs specific to ScheduleWeekday here.
-// This section will be preserved during regeneration.
-// >>> END CUSTOM DTOs
 

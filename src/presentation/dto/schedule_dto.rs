@@ -31,10 +31,10 @@ pub struct CreateScheduleDto {
     #[cfg_attr(feature = "openapi", schema(example = "example"))]
     pub name: String,
     #[cfg_attr(feature = "openapi", schema(example = true))]
-    #[serde(alias = "is_default")]
+    #[serde(default, alias = "is_default")]
     pub is_default: bool,
     #[cfg_attr(feature = "openapi", schema(example = 42))]
-    #[serde(alias = "order_number")]
+    #[serde(default, alias = "order_number")]
     pub order_number: i32,
     #[serde(default, skip_serializing_if = "Option::is_none", alias = "start_date")]
     pub start_date: Option<NaiveDate>,
@@ -45,7 +45,7 @@ pub struct CreateScheduleDto {
     #[serde(alias = "time_out")]
     pub time_out: NaiveTime,
     #[cfg_attr(feature = "openapi", schema(example = true))]
-    #[serde(alias = "is_override_holiday")]
+    #[serde(default, alias = "is_override_holiday")]
     pub is_override_holiday: bool,
 }
 
@@ -103,10 +103,10 @@ pub struct PatchScheduleDto {
     #[cfg_attr(feature = "openapi", schema(example = 42))]
     #[serde(skip_serializing_if = "Option::is_none", alias = "order_number")]
     pub order_number: Option<i32>,
-    #[serde(skip_serializing_if = "Option::is_none", alias = "start_date")]
-    pub start_date: Option<NaiveDate>,
-    #[serde(skip_serializing_if = "Option::is_none", alias = "end_date")]
-    pub end_date: Option<NaiveDate>,
+    #[serde(default, deserialize_with = "crate::presentation::dto::double_option", alias = "start_date")]
+    pub start_date: Option<Option<NaiveDate>>,
+    #[serde(default, deserialize_with = "crate::presentation::dto::double_option", alias = "end_date")]
+    pub end_date: Option<Option<NaiveDate>>,
     #[serde(skip_serializing_if = "Option::is_none", alias = "time_in")]
     pub time_in: Option<NaiveTime>,
     #[serde(skip_serializing_if = "Option::is_none", alias = "time_out")]
@@ -299,12 +299,4 @@ impl backbone_core::ApplyUpdateDto<UpdateScheduleDto> for Schedule {
         Ok(self)
     }
 }
-
-// =============================================================================
-// Custom DTOs
-// =============================================================================
-
-// Add custom DTOs specific to Schedule here.
-// This section will be preserved during regeneration.
-// >>> END CUSTOM DTOs
 

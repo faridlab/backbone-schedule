@@ -12,7 +12,7 @@ pub mod schedule_weekday_handler;
 
 
 // Re-exports
-pub use schedule_handler::{create_schedule_routes, create_schedule_read_routes, create_schedule_write_routes};
-pub use schedule_employee_handler::{create_schedule_employee_routes, create_schedule_employee_read_routes, create_schedule_employee_write_routes};
-pub use schedule_organization_handler::{create_schedule_organization_routes, create_schedule_organization_read_routes, create_schedule_organization_write_routes};
-pub use schedule_weekday_handler::{create_schedule_weekday_routes, create_schedule_weekday_read_routes, create_schedule_weekday_write_routes};
+pub use schedule_handler::{create_schedule_routes, create_schedule_read_routes, create_schedule_write_routes, schedule_permissions};
+pub use schedule_employee_handler::{create_schedule_employee_routes, create_schedule_employee_read_routes, create_schedule_employee_write_routes, schedule_employee_permissions};
+pub use schedule_organization_handler::{create_schedule_organization_routes, create_schedule_organization_read_routes, create_schedule_organization_write_routes, schedule_organization_permissions};
+pub use schedule_weekday_handler::{create_schedule_weekday_routes, create_schedule_weekday_read_routes, create_schedule_weekday_write_routes, schedule_weekday_permissions};

@@ -1545,12 +1545,8 @@ components:
       type: object
       required:
         - name
-        - is_default
-        - order_number
         - time_in
         - time_out
-        - is_override_holiday
-        - metadata
       properties:
         name:
           type: string
@@ -1575,8 +1571,6 @@ components:
           format: time
         is_override_holiday:
           type: boolean
-        metadata:
-          type: object
 
     UpdateScheduleRequest:
       type: object
@@ -1587,7 +1581,6 @@ components:
         - time_in
         - time_out
         - is_override_holiday
-        - metadata
       properties:
         name:
           type: string
@@ -1612,8 +1605,6 @@ components:
           format: time
         is_override_holiday:
           type: boolean
-        metadata:
-          type: object
 
     PatchScheduleRequest:
       type: object
@@ -1641,8 +1632,6 @@ components:
           format: time
         is_override_holiday:
           type: boolean
-        metadata:
-          type: object
 
     ScheduleList:
       type: object
@@ -1704,10 +1693,8 @@ components:
       required:
         - employee_id
         - schedule_date
-        - order_number
         - time_in
         - time_out
-        - metadata
       properties:
         employee_id:
           type: string
@@ -1724,8 +1711,6 @@ components:
         time_out:
           type: string
           format: time
-        metadata:
-          type: object
 
     UpdateScheduleEmployeeRequest:
       type: object
@@ -1735,7 +1720,6 @@ components:
         - order_number
         - time_in
         - time_out
-        - metadata
       properties:
         employee_id:
           type: string
@@ -1752,8 +1736,6 @@ components:
         time_out:
           type: string
           format: time
-        metadata:
-          type: object
 
     PatchScheduleEmployeeRequest:
       type: object
@@ -1773,8 +1755,6 @@ components:
         time_out:
           type: string
           format: time
-        metadata:
-          type: object
 
     ScheduleEmployeeList:
       type: object
@@ -1841,10 +1821,8 @@ components:
     CreateScheduleOrganizationRequest:
       type: object
       required:
-        - order_number
         - time_in
         - time_out
-        - metadata
       properties:
         structure_id:
           nullable: true
@@ -1870,8 +1848,6 @@ components:
         time_out:
           type: string
           format: time
-        metadata:
-          type: object
 
     UpdateScheduleOrganizationRequest:
       type: object
@@ -1879,7 +1855,6 @@ components:
         - order_number
         - time_in
         - time_out
-        - metadata
       properties:
         structure_id:
           nullable: true
@@ -1905,8 +1880,6 @@ components:
         time_out:
           type: string
           format: time
-        metadata:
-          type: object
 
     PatchScheduleOrganizationRequest:
       type: object
@@ -1935,8 +1908,6 @@ components:
         time_out:
           type: string
           format: time
-        metadata:
-          type: object
 
     ScheduleOrganizationList:
       type: object
@@ -2002,14 +1973,6 @@ components:
       type: object
       required:
         - schedule_id
-        - sun
-        - mon
-        - tue
-        - wed
-        - thu
-        - fri
-        - sat
-        - metadata
       properties:
         schedule_id:
           type: string
@@ -2028,8 +1991,6 @@ components:
           type: string
         sat:
           type: string
-        metadata:
-          type: object
 
     UpdateScheduleWeekdayRequest:
       type: object
@@ -2042,7 +2003,6 @@ components:
         - thu
         - fri
         - sat
-        - metadata
       properties:
         schedule_id:
           type: string
@@ -2061,8 +2021,6 @@ components:
           type: string
         sat:
           type: string
-        metadata:
-          type: object
 
     PatchScheduleWeekdayRequest:
       type: object
@@ -2084,8 +2042,6 @@ components:
           type: string
         sat:
           type: string
-        metadata:
-          type: object
 
     ScheduleWeekdayList:
       type: object
